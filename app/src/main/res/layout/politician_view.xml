@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:id="@+id/politicianImage"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"  />
+    <TextView
+            android:id="@+id/politicianName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+            android:textColor="@android:color/black"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+    />
+    </LinearLayout>
+    <TextView
+            android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:text="Educational Qualification"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    />
+    <TextView
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:id="@+id/qualification"
+    />
+    <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Family History"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+    />
+    <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:id="@+id/familyHistory"
+    />
+    <!--<com.github.rtoshiro.view.video.FullscreenVideoLayout-->
+            <!--android:id="@+id/videoview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp" />-->
+
+    <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="30dp" />
+    <ListView
+            android:layout_margin="10dp"
+            android:id="@+id/commentsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+    </ListView>
+</LinearLayout>
+
+</ScrollView>

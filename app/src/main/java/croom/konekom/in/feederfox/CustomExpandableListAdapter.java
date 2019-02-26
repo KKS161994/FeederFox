@@ -59,8 +59,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.politicianArrayList.get(listPosition).getPoliticalComment()
-                .size();
+        return 0;
     }
 
     @Override

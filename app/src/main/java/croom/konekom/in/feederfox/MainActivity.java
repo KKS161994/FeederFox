@@ -1,14 +1,14 @@
 package croom.konekom.in.feederfox;
 
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
+import croom.konekom.in.feederfox.adapter.PoliticianAdapter;
 import croom.konekom.in.feederfox.constant.Config;
 import croom.konekom.in.feederfox.database.Politicians;
 import croom.konekom.in.feederfox.listner.NetworkResponseListener;
@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 public class MainActivity extends AppCompatActivity implements NetworkResponseListener {
     private Politicians politicians;
-    private ExpandableListView expandableListView;
-    private CustomExpandableListAdapter expandableListAdapter;
+    private ListView listView;
+    private PoliticianAdapter expandableListAdapter;
     private List<String> expandableListTitle;
     private FetchData fetchData;
     private ProgressBar mProgressBar;
@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements NetworkResponseLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        listView= findViewById(R.id.expandableListView);
         politiciansList = new ArrayList<>();
         politicians = new Politicians(MainActivity.this);
 
-        expandableListAdapter = new CustomExpandableListAdapter(this, politiciansList);
-        expandableListView.setAdapter(expandableListAdapter);
+        expandableListAdapter = new PoliticianAdapter( politiciansList,this);
+        listView.setAdapter(expandableListAdapter);
         mProgressBar=findViewById(R.id.progress_bar);
         fetchData = new FetchData();
         try {
@@ -49,6 +49,22 @@ public class MainActivity extends AppCompatActivity implements NetworkResponseLi
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        " List Expanded.",
+
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,PoliticianView.class);
+//intent.putExtra("Politician",politiciansList.get(groupPosition));
+                PoliticianView.setPolitician(politiciansList.get(position));
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -69,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements NetworkResponseLi
             for(int i=0;i<politicianArray.length();i++){
                 JSONObject politicianObject = politicianArray.getJSONObject(i);
                 Politician politician = new Politician(politicianObject.getInt("id"),politicianObject.getString("Name"),
-                        politicianObject.getString("Image"),politicianObject.getJSONArray("Politician_Comments"));
+                        politicianObject.getString("Image"),politicianObject.getJSONArray("Politician_Comments"),politicianObject.getString("Educational_Qualification")
+                ,politicianObject.getString("Family_History"),politicianObject.getString("video_link"));
                 politicians.insertPolitician(politician.getId(),politician.getName(),politician.getImage_URL());
                 politiciansList.add(politician);
             }
